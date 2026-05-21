@@ -1,6 +1,6 @@
 # Regna — Monorepo setup (pnpm, Turborepo, Nuxt 4, Fastify)
 
-Corrected guide aligned with this repository. French version of the visual doc: `docs/HTML text.html`.
+Corrected guide aligned with this repository. French version of the visual doc: `docs/HTML text.html`. **Architecture and install-related decisions over time:** see **`docs/TECHNICAL-LOG.md`** (append-only).
 
 ---
 
