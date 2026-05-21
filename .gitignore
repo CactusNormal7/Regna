@@ -1,0 +1,50 @@
+# Dependencies
+node_modules
+
+# Logs & diagnostics
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Turborepo
+.turbo
+
+# Build outputs (shared packages / server / Nuxt)
+dist
+build
+.output
+.data
+.nuxt
+.nitro
+
+# Tooling caches & temp
+.cache
+.temp
+.tmp
+.parcel-cache
+.eslintcache
+*.tsbuildinfo
+
+# Coverage & tests
+coverage
+*.lcov
+.nyc_output
+
+# Env & secrets (commit examples only)
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors & IDEs (local only)
+.idea
+.fleet
+*.swp
+*.swo

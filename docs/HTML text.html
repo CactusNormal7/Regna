@@ -1,0 +1,269 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-mono)}
+.sheet{padding:1.5rem 0}
+.header{margin-bottom:1.5rem}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--color-background-info);color:var(--color-text-info);font-family:var(--font-sans);letter-spacing:.03em}
+.title{font-size:22px;font-weight:500;color:var(--color-text-primary);font-family:var(--font-sans);margin:.4rem 0 .2rem}
+.subtitle{font-size:13px;color:var(--color-text-secondary);font-family:var(--font-sans)}
+.step{margin-bottom:1rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.step-header{display:flex;align-items:center;gap:10px;padding:.65rem 1rem;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.step-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;font-family:var(--font-sans);flex-shrink:0;background:var(--color-background-info);color:var(--color-text-info)}
+.step-title{font-size:13px;font-weight:500;font-family:var(--font-sans);color:var(--color-text-primary)}
+.step-tag{font-size:11px;font-family:var(--font-sans);color:var(--color-text-secondary);margin-left:auto}
+.step-body{padding:.75rem 1rem;display:flex;flex-direction:column;gap:6px}
+.cmd-block{background:var(--color-background-tertiary);border-radius:var(--border-radius-md);padding:.5rem .75rem;display:flex;flex-direction:column;gap:4px}
+.cmd{font-size:12px;color:var(--color-text-primary);font-family:var(--font-mono);line-height:1.6;white-space:pre}
+.comment{font-size:11px;color:var(--color-text-secondary);font-family:var(--font-mono)}
+.note{font-size:12px;color:var(--color-text-secondary);font-family:var(--font-sans);padding:.4rem .6rem;border-left:2px solid var(--color-border-info);background:var(--color-background-info);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;line-height:1.5}
+.warn{font-size:12px;color:var(--color-text-warning);font-family:var(--font-sans);padding:.4rem .6rem;border-left:2px solid var(--color-border-warning);background:var(--color-background-warning);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;line-height:1.5}
+.file-block{background:var(--color-background-tertiary);border-radius:var(--border-radius-md);overflow:hidden}
+.file-name{font-size:11px;color:var(--color-text-secondary);font-family:var(--font-sans);padding:.3rem .75rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.file-code{padding:.5rem .75rem;font-size:11.5px;font-family:var(--font-mono);color:var(--color-text-primary);line-height:1.7;white-space:pre}
+.tree{font-size:11.5px;font-family:var(--font-mono);color:var(--color-text-primary);line-height:1.8;white-space:pre;padding:.5rem .75rem;background:var(--color-background-tertiary);border-radius:var(--border-radius-md)}
+.tree .dim{color:var(--color-text-secondary)}
+.tree .hl{color:var(--color-text-info)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.divider{height:0.5px;background:var(--color-border-tertiary);margin:.5rem 0}
+</style>
+
+<div class="sheet">
+  <div class="header">
+    <span class="badge">Regna — Stack Setup</span>
+    <div class="title">Installation complète</div>
+    <div class="subtitle">pnpm · Turborepo · Nuxt 4 · Fastify · Engine TS (@chess/engine)</div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">Prérequis — installer pnpm</div>
+      <div class="step-tag">global</div>
+    </div>
+    <div class="step-body">
+      <div class="cmd-block">
+        <span class="comment"># via npm</span>
+        <span class="cmd">npm install -g pnpm</span>
+        <div class="divider"></div>
+        <span class="comment"># vérifier</span>
+        <span class="cmd">pnpm --version</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">Monorepo racine</div>
+      <div class="step-tag">racine /</div>
+    </div>
+    <div class="step-body">
+      <div class="cmd-block">
+        <span class="cmd">mkdir regna && cd regna
+pnpm init
+pnpm add -D turbo typescript
+mkdir -p packages/engine apps/client apps/server</span>
+      </div>
+      <div class="two-col">
+        <div class="file-block">
+          <div class="file-name">pnpm-workspace.yaml</div>
+          <div class="file-code">packages:
+  - "packages/*"
+  - "apps/*"
+
+# Optional (pnpm): allow native dependency builds during install
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true</div>
+        </div>
+        <div class="file-block">
+          <div class="file-name">turbo.json</div>
+          <div class="file-code">{
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {}
+  }
+}</div>
+        </div>
+      </div>
+      <div class="file-block">
+        <div class="file-name">package.json — racine</div>
+        <div class="file-code">{
+  "name": "Regna",
+  "packageManager": "pnpm@11.1.3",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "...",
+    "typescript": "..."
+  }
+}</div>
+      </div>
+      <div class="warn">Éviter la combinaison <code style="font-family:var(--font-mono);font-size:11px;">packageManager</code> + <code style="font-family:var(--font-mono);font-size:11px;">devEngines.packageManager</code> : Turborepo 2.x ignore alors le premier et échoue avec « Missing packageManager » / problèmes de workspaces.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">packages/engine — moteur de règles</div>
+      <div class="step-tag">@chess/engine</div>
+    </div>
+    <div class="step-body">
+      <div class="cmd-block">
+        <span class="cmd">cd packages/engine
+pnpm init
+pnpm add zod
+pnpm add -D typescript
+npx tsc --init --strict --target ES2022 --module NodeNext --moduleResolution NodeNext --outDir dist</span>
+      </div>
+      <div class="file-block">
+        <div class="file-name">package.json</div>
+        <div class="file-code">{
+  "name": "@chess/engine",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": { "dev": "tsc --watch", "build": "tsc" },
+  "dependencies": { "zod": "..." },
+  "devDependencies": { "typescript": "..." }
+}</div>
+      </div>
+      <div class="note">Le champ <code style="font-family:var(--font-mono);font-size:11px;">"name"</code> doit être exactement <code style="font-family:var(--font-mono);font-size:11px;">@chess/engine</code> pour que les dépendances <code style="font-family:var(--font-mono);font-size:11px;">workspace:*</code> se résolvent (le nom du dossier <code style="font-family:var(--font-mono);font-size:11px;">engine</code> ne suffit pas).</div>
+      <div class="note">C'est le package le plus important — moteur pur TS, sans dépendance UI ni serveur. Partagé entre client et server.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">apps/server — Fastify + Socket.IO</div>
+      <div class="step-tag">apps/server</div>
+    </div>
+    <div class="step-body">
+      <div class="cmd-block">
+        <span class="cmd">cd apps/server
+pnpm init
+pnpm add fastify fastify-plugin @fastify/cors socket.io drizzle-orm postgres zod "@chess/engine@workspace:*"
+pnpm add -D typescript tsx @types/node drizzle-kit</span>
+      </div>
+      <div class="file-block">
+        <div class="file-name">package.json</div>
+        <div class="file-code">{
+  "name": "server",
+  "type": "module",
+  "scripts": { "dev": "tsx watch src/index.ts", "build": "tsc" },
+  "dependencies": { "@chess/engine": "workspace:*" }
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title">apps/client — Nuxt 4 + PixiJS</div>
+      <div class="step-tag">apps/client</div>
+    </div>
+    <div class="step-body">
+      <div class="cmd-block">
+        <span class="comment"># init Nuxt (choisir : minimal, pnpm, no git)</span>
+        <span class="cmd">pnpm dlx nuxi@latest init apps/client</span>
+        <div class="divider"></div>
+        <span class="comment"># si pnpm bloque sur les scripts de build</span>
+        <span class="cmd">pnpm approve-builds</span>
+        <div class="divider"></div>
+        <span class="comment"># packages</span>
+        <span class="cmd">cd apps/client
+pnpm add pixi.js @vueuse/core vue vue-router "@chess/engine@workspace:*"
+pnpm add -D @vite-pwa/nuxt</span>
+      </div>
+      <div class="file-block">
+        <div class="file-name">nuxt.config.ts</div>
+        <div class="file-code">export default defineNuxtConfig({
+  modules: ['@vite-pwa/nuxt'],
+  pwa: {
+    manifest: {
+      name: 'Regna',
+      short_name: 'Regna',
+      theme_color: '#3D5AFE'
+    }
+  }
+})</div>
+      </div>
+      <div class="file-block">
+        <div class="file-name">package.json — ajouter engine</div>
+        <div class="file-code">{
+  "name": "client",
+  "private": true,
+  "dependencies": { "@chess/engine": "workspace:*" }
+}</div>
+      </div>
+      <div class="warn">⚠ Ne pas utiliser @nuxtjs/pwa — abandonné, incompatible Nuxt 4. Utiliser @vite-pwa/nuxt.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div class="step-title">Install final & lancement</div>
+      <div class="step-tag">racine /</div>
+    </div>
+    <div class="step-body">
+      <div class="cmd-block">
+        <span class="comment"># depuis la racine — résout tous les workspaces</span>
+        <span class="comment"># à la racine du monorepo (le dossier où se trouvent pnpm-workspace.yaml et package.json racine)</span>
+        <span class="cmd">pnpm install</span>
+        <div class="divider"></div>
+        <span class="comment"># lancer tout en parallèle</span>
+        <span class="cmd">pnpm dev</span>
+        <div class="divider"></div>
+        <span class="comment"># ou uniquement le client</span>
+        <span class="cmd">cd apps/client && pnpm dev</span>
+      </div>
+      <div class="note">Pour un graphe workspaces cohérent, préférez <code style="font-family:var(--font-mono);font-size:11px;">pnpm install</code> depuis la racine (pnpm peut aussi retrouver la racine depuis un sous-package, mais tous les manifests doivent rester synchronisés).</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">✓</div>
+      <div class="step-title">Structure finale</div>
+      <div class="step-tag">arborescence</div>
+    </div>
+    <div class="step-body">
+      <div class="tree"><span class="hl">Regna/</span>
+<span class="dim">├── </span>packages/
+<span class="dim">│   └── </span><span class="hl">engine/</span><span class="dim">          ← @chess/engine</span>
+<span class="dim">│       └── src/</span>
+<span class="dim">│           ├── </span>board.ts
+<span class="dim">│           ├── </span>cards.ts
+<span class="dim">│           ├── </span>rules.ts
+<span class="dim">│           └── </span>index.ts
+<span class="dim">├── </span>apps/
+<span class="dim">│   ├── </span><span class="hl">server/</span><span class="dim">          ← Fastify + Socket.IO</span>
+<span class="dim">│   │   └── src/</span>
+<span class="dim">│   │       ├── </span>index.ts
+<span class="dim">│   │       ├── </span>rooms.ts
+<span class="dim">│   │       └── db/</span>
+<span class="dim">│   └── </span><span class="hl">client/</span><span class="dim">          ← Nuxt 4 + PixiJS</span>
+<span class="dim">│       ├── </span>components/
+<span class="dim">│       ├── </span>pages/
+<span class="dim">│       └── </span>composables/
+<span class="dim">├── </span>pnpm-workspace.yaml
+<span class="dim">├── </span>turbo.json
+<span class="dim">└── </span>package.json</div>
+    </div>
+  </div>
+
+</div>
