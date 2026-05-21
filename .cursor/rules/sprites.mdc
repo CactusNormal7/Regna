@@ -1,0 +1,42 @@
+---
+description: Sprite and chess piece asset locations under src/sprites
+globs: src/sprites/**,apps/client/**
+alwaysApply: false
+---
+
+# Sprite assets
+
+All game sprites live at the repo root under **`src/sprites/`** (not under `apps/client/public` or `docs/` unless copying in for reference only).
+
+## Chess pieces (canonical)
+
+Use **`src/sprites/chess pieces/`** for board, piece, and cursor art (Pixel Chess v1.2 pack).
+
+| Subfolder | Contents |
+|-----------|----------|
+| `16x16 pieces/` | Per-color sprite sheets (`WhitePieces.png`, `BlackPieces.png`, variants) |
+| `16x32 pieces/` | Per-piece PNGs (`W_King.png`, `B_Pawn.png`, …) and combined sheets |
+| `boards/` | Plain and perspective boards (`board_plain_*.png`, `board_persp_*.png`) |
+| (root) | `cursor.png`, `README.txt` (license: attribute DANI MACCARI) |
+
+Folder name includes a **space** — quote paths in code and imports:
+
+```typescript
+// ✅ GOOD
+const sheet = '/sprites/chess pieces/16x32 pieces/WhitePieces-Sheet.png'
+
+// ❌ BAD — wrong roots
+'apps/client/assets/chess/W_King.png'
+'docs/pixel chess_v1.2/...'
+```
+
+## Other sprites
+
+- Add new sprite categories as subfolders of `src/sprites/` (e.g. cards, UI), not beside the repo root.
+- **`src/sprites/v1/`** is the older Pixel Chess layout; prefer **`chess pieces/`** for new work unless explicitly migrating v1.
+
+## When adding assets
+
+1. Place files under the correct `src/sprites/...` subfolder.
+2. Wire the client to load from `src/sprites` paths (or copy into the client’s public/build pipeline if the project already defines one — do not invent a second source tree).
+3. Do not commit duplicate packs under `docs/` for runtime use; `docs/` is reference only.
