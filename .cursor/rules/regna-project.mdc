@@ -9,16 +9,32 @@ alwaysApply: true
 
 - **Game design & vision:** `docs/regna.pdf` (GDD). Use it for _what_ we build (cards, chess evolution, modes), not for stack details.
 - **Install & stack procedures:** `docs/regna-setup.md` (authoritative bootstrap).
-- **Architecture / DB / ops decisions:** **`docs/TECHNICAL-LOG.md`** — **append** a dated entry whenever you change architecture, database/schema/migrations, env contracts, or non-trivial install steps. If install commands change, **update `regna-setup.md` in the same change** and reference it in the log entry.
+- **Architecture / DB / ops decisions:** **`docs/TECHNICAL-LOG.md`** — append-only **global engineering log** (why the stack looks this way, dated decisions, rollout notes). **Not** a how-to or feature reference.
+- **Package / area READMEs** — **how-to and reference** for what exists and how to use it. Put explanations here, not in rules, comments, or the technical log.
+
+### README vs TECHNICAL-LOG (do not mix roles)
+
+| Doc                                                | Role                                          | When to update                                                                                                     |
+| -------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **`README.md`** (repo root)                        | Monorepo overview, quick start, links         | New package, root scripts, onboarding flow changes                                                                 |
+| **`apps/*/README.md`**, **`packages/*/README.md`** | Scripts, env, layout, usage of that package   | New **usable** surface: npm scripts, CLI, env vars, API entrypoints, workflows, conventions scoped to that package |
+| **`docs/regna-setup.md`**                          | Install & bootstrap steps                     | Commands or prerequisites change                                                                                   |
+| **`docs/TECHNICAL-LOG.md`**                        | Dated **decisions** and cross-cutting changes | Architecture, DB/schema/migrations, env contracts, tooling, client↔server contracts                                |
+
+**When you add something usable** (script, env var, CLI wrapper, technical convention, integration pattern): update the **README of the package or area it belongs to** in the same change. Keep it concise and actionable (tables for scripts/env are fine).
+
+**Do not** put how-to prose or script explanations in `TECHNICAL-LOG.md` or Cursor rules—those belong in READMEs. **Do not** duplicate the technical log in READMEs; link to it only when the _why_ matters for context.
+
+If install commands change, **update `regna-setup.md` in the same change** and reference it in a TECHNICAL-LOG entry.
 
 ## Monorepo map (pnpm + Turborepo)
 
-| Area | Path | Role |
-|------|------|------|
-| Shared rules & game logic | `packages/engine` → npm name **`@chess/engine`** | Pure TypeScript/Zod; **no** UI (Vue/Nuxt), **no** Fastify/socket imports. Used by client + server. |
-| Web client | `apps/client` | **Nuxt 4**, PixiJS, PWA (`@vite-pwa/nuxt`). Depends on `@chess/engine`. |
-| API & realtime | `apps/server` | **Fastify**, **Socket.IO**, **Prisma** + **Supabase Postgres**. Depends on `@chess/engine`. |
-| Root | `package.json`, `pnpm-workspace.yaml`, `turbo.json` | `pnpm dev` / `build` / `typecheck` via Turbo. Root needs `"packageManager": "pnpm@…"` **without** conflicting `devEngines.packageManager` (Turborepo). |
+| Area                      | Path                                                | Role                                                                                                                                                   |
+| ------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Shared rules & game logic | `packages/engine` → npm name **`@chess/engine`**    | Pure TypeScript/Zod; **no** UI (Vue/Nuxt), **no** Fastify/socket imports. Used by client + server.                                                     |
+| Web client                | `apps/client`                                       | **Nuxt 4**, PixiJS, PWA (`@vite-pwa/nuxt`). Depends on `@chess/engine`.                                                                                |
+| API & realtime            | `apps/server`                                       | **Fastify**, **Socket.IO**, **Prisma** + **Supabase Postgres**. Depends on `@chess/engine`.                                                            |
+| Root                      | `package.json`, `pnpm-workspace.yaml`, `turbo.json` | `pnpm dev` / `build` / `typecheck` via Turbo. Root needs `"packageManager": "pnpm@…"` **without** conflicting `devEngines.packageManager` (Turborepo). |
 
 Workspace dependency name **must** match `packages/engine`’s `"name"` field (`@chess/engine`).
 
@@ -36,7 +52,7 @@ Workspace dependency name **must** match `packages/engine`’s `"name"` field (`
 - Use **[Conventional Commits](https://www.conventionalcommits.org/)**: `type(scope): short summary` (e.g. `feat(engine): validate card cost on play`, `fix(server): cors preflight on game join`).
 - **Types:** `feat`, `fix`, `docs`, `style` (formatting only), `refactor`, `test`, `chore` / `build` / `ci` as appropriate.
 - **Subject line:** imperative mood (“add”, “fix”, not “added”); **short** (aim ≤ ~72 chars); state **what matters** for history—intent and user-visible area, not every file touched.
-- **Body:** optional; use only when the *why* is not obvious from the subject (breaking change, migration note, ticket ref). Keep it **brief**—details belong in code and **`docs/TECHNICAL-LOG.md`** when architectural.
+- **Body:** optional; use only when the _why_ is not obvious from the subject (breaking change, migration note, ticket ref). Keep it **brief**—details belong in code and **`docs/TECHNICAL-LOG.md`** when architectural.
 
 ## Boundaries agents must respect
 
@@ -46,6 +62,7 @@ Workspace dependency name **must** match `packages/engine`’s `"name"` field (`
 
 ## Checklist before finishing a task that touches stack or data
 
-1. Does **`docs/TECHNICAL-LOG.md`** need a new entry? (architecture, DB, env, tooling, cross-service contract)
-2. Does **`docs/regna-setup.md`** need edits? (if install/run steps changed)
-3. Do migrations or `schema` changes include a one-line **rollout** note in the log?
+1. Does the **README** for the affected package/area need an update? (new scripts, env, usage, conventions)
+2. Does **`docs/TECHNICAL-LOG.md`** need a new entry? (architecture, DB, env contract, tooling, cross-service contract)
+3. Does **`docs/regna-setup.md`** need edits? (if install/run steps changed)
+4. Do migrations or `schema` changes include a one-line **rollout** note in the log?

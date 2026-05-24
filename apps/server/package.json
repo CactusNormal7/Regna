@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "private": true,
+  "description": "Regna API — Fastify, Socket.IO, Prisma, Supabase Postgres. See README.md in this folder.",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
@@ -13,6 +14,17 @@
     "db:status": "tsx scripts/prisma-direct.ts migrate status",
     "db:push": "tsx scripts/prisma-direct.ts db push",
     "db:studio": "tsx scripts/prisma-direct.ts studio"
+  },
+  "scriptsDoc": {
+    "dev": "Start the API with hot reload (default port 3001). Requires apps/server/.env.",
+    "build": "Generate Prisma client and compile TypeScript to dist/.",
+    "typecheck": "Generate Prisma client and run tsc without emitting files.",
+    "db:generate": "Regenerate the Prisma client after schema changes (no DB connection).",
+    "db:migrate": "Create and apply a new migration in dev (uses DIRECT_DATABASE_URL). Pass -- --name your_change.",
+    "db:migrate:deploy": "Apply pending migrations — fresh clone, CI, or production (uses DIRECT_DATABASE_URL).",
+    "db:status": "Show migration history and whether the DB matches the repo.",
+    "db:push": "Push schema.prisma to the DB without a migration file — prototyping only.",
+    "db:studio": "Open Prisma Studio in the browser (uses DIRECT_DATABASE_URL)."
   },
   "dependencies": {
     "@chess/engine": "workspace:*",
