@@ -3,9 +3,11 @@
 | Path | Role |
 |------|------|
 | [`sprites/`](./sprites/) | Runtime sprite assets (see `.cursor/rules/sprites.mdc`) |
-| [`PRODUCT-PLAN.md`](./PRODUCT-PLAN.md) | **Master plan** — roadmap, DB schema, API, Socket contracts, milestones |
-| [`PRODUCT-PLAN.pdf`](./PRODUCT-PLAN.pdf) | Export PDF (même contenu ; regénérer via `scripts/generate-product-plan-pdf.sh`) |
+| [`PRODUCT-PLAN.md`](./PRODUCT-PLAN.md) | Master plan — roadmap, DB schema, API, Socket contracts |
+| [`PRODUCT-PLAN.pdf`](./PRODUCT-PLAN.pdf) | PDF export (`scripts/generate-product-plan-pdf.sh`) |
 
-**Sources produit :** `docs/PDF document.pdf` (GDD Chess Evolved v1), `docs/1.md`, `docs/regna-setup.md`.
+**Product sources:** `docs/regna.pdf` (GDD), `docs/regna-setup.md` (install).
 
-**Stack cible :** monorepo pnpm — `packages/engine`, `apps/client` (Nuxt 4 + PixiJS + PWA), `apps/server` (Fastify + Socket.IO + Drizzle + Postgres).
+**Stack:** pnpm monorepo — `packages/engine`, `apps/client` (Nuxt 4 + PixiJS), `apps/server` (Fastify + Prisma + Supabase).
+
+**Database:** `cp .env.example apps/server/.env`, fill credentials, then `cd apps/server && pnpm db:migrate:deploy && pnpm db:generate`. Details: `docs/regna-setup.md` § Supabase + Prisma.

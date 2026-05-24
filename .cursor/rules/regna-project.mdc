@@ -17,7 +17,7 @@ alwaysApply: true
 |------|------|------|
 | Shared rules & game logic | `packages/engine` → npm name **`@chess/engine`** | Pure TypeScript/Zod; **no** UI (Vue/Nuxt), **no** Fastify/socket imports. Used by client + server. |
 | Web client | `apps/client` | **Nuxt 4**, PixiJS, PWA (`@vite-pwa/nuxt`). Depends on `@chess/engine`. |
-| API & realtime | `apps/server` | **Fastify**, **Socket.IO**, **Drizzle** + **Postgres**. Depends on `@chess/engine`. |
+| API & realtime | `apps/server` | **Fastify**, **Socket.IO**, **Prisma** + **Supabase Postgres**. Depends on `@chess/engine`. |
 | Root | `package.json`, `pnpm-workspace.yaml`, `turbo.json` | `pnpm dev` / `build` / `typecheck` via Turbo. Root needs `"packageManager": "pnpm@…"` **without** conflicting `devEngines.packageManager` (Turborepo). |
 
 Workspace dependency name **must** match `packages/engine`’s `"name"` field (`@chess/engine`).

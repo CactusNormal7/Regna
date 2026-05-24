@@ -1,0 +1,385 @@
+// Regna — Postgres schema (PRODUCT-PLAN §5). Column names snake_case via @@map.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CardTiming {
+  before_move
+  after_move
+  anytime
+  turn_start
+
+  @@map("card_timing")
+}
+
+enum MatchStatus {
+  waiting
+  active
+  finished
+  abandoned
+
+  @@map("match_status")
+}
+
+enum RulePresetVisibility {
+  private
+  unlisted
+  public
+
+  @@map("rule_preset_visibility")
+}
+
+enum PlayerColor {
+  white
+  black
+
+  @@map("player_color")
+}
+
+model User {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email         String?   @unique @db.VarChar(255)
+  passwordHash  String?   @map("password_hash")
+  oauthProvider String?   @map("oauth_provider") @db.VarChar(32)
+  oauthSub      String?   @map("oauth_sub") @db.VarChar(255)
+  displayName   String?   @map("display_name") @db.VarChar(64)
+  avatarUrl     String?   @map("avatar_url")
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  lastLoginAt   DateTime? @map("last_login_at") @db.Timestamptz(6)
+  deletedAt     DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  profile              PlayerProfile?
+  progression          PlayerProgression?
+  stats                PlayerStats?
+  sessions             Session[]
+  emailVerificationTokens EmailVerificationToken[]
+  decks                Deck[]
+  loadouts             Loadout[]
+  rulePresets          RulePreset[]
+  unlockedCards        UnlockedCard[]
+  unlockedPassives     UnlockedPassive[]
+  achievements         UserAchievement[]
+  ratings              Rating[]
+  matchPlayers         MatchPlayer[]
+  whiteMatches         Match[] @relation("MatchWhite")
+  blackMatches         Match[] @relation("MatchBlack")
+  wonMatches           Match[] @relation("MatchWinner")
+  hostedPrivateRooms   PrivateRoom[]
+  matchmakingQueue     MatchmakingQueue?
+
+  @@unique([oauthProvider, oauthSub])
+  @@map("users")
+}
+
+model Session {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String    @map("user_id") @db.Uuid
+  tokenHash String    @map("token_hash")
+  expiresAt DateTime  @map("expires_at") @db.Timestamptz(6)
+  userAgent String?   @map("user_agent")
+  revokedAt DateTime? @map("revoked_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  tokenHash String   @map("token_hash")
+  expiresAt DateTime @map("expires_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verification_tokens")
+}
+
+model PlayerProfile {
+  userId        String  @id @map("user_id") @db.Uuid
+  bio           String?
+  countryCode   String? @map("country_code") @db.Char(2)
+  locale        String  @default("fr") @db.VarChar(10)
+  uiPreferences Json?   @map("ui_preferences")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("player_profiles")
+}
+
+model PlayerProgression {
+  userId   String @id @map("user_id") @db.Uuid
+  xp       Int    @default(0)
+  level    Int    @default(1)
+  rankTier String? @map("rank_tier") @db.VarChar(32)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("player_progression")
+}
+
+model PlayerStats {
+  userId           String   @id @map("user_id") @db.Uuid
+  gamesPlayed      Int      @default(0) @map("games_played")
+  wins             Int      @default(0)
+  losses           Int      @default(0)
+  draws            Int      @default(0)
+  cardsPlayed      Int      @default(0) @map("cards_played")
+  totalPlayTimeSec Int      @default(0) @map("total_play_time_sec")
+  updatedAt        DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("player_stats")
+}
+
+model Rating {
+  userId     String @map("user_id") @db.Uuid
+  mode       String @db.VarChar(32)
+  rating     Int    @default(1200)
+  games      Int    @default(0)
+  peakRating Int    @default(1200) @map("peak_rating")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, mode])
+  @@index([mode, rating(sort: Desc)])
+  @@map("ratings")
+}
+
+model Card {
+  id           String     @id @db.VarChar(64)
+  name         String     @db.VarChar(128)
+  description  String?
+  paCost       Int        @map("pa_cost") @db.SmallInt
+  timing       CardTiming
+  effectKey    String     @map("effect_key") @db.VarChar(64)
+  effectParams Json       @map("effect_params")
+  rarity       String?    @db.VarChar(16)
+  isStarter    Boolean    @default(false) @map("is_starter")
+
+  unlockedBy UnlockedCard[]
+
+  @@map("cards")
+}
+
+model Passive {
+  id           String @id @db.VarChar(64)
+  name         String @db.VarChar(128)
+  description  String?
+  effectKey    String @map("effect_key") @db.VarChar(64)
+  effectParams Json   @map("effect_params")
+
+  unlockedBy UnlockedPassive[]
+
+  @@map("passives")
+}
+
+model GameMode {
+  id     String @id @db.VarChar(32)
+  name   String @db.VarChar(64)
+  config Json
+
+  matches Match[]
+
+  @@map("game_modes")
+}
+
+model Achievement {
+  id          String @id @db.VarChar(64)
+  name        String @db.VarChar(128)
+  criteriaKey String @map("criteria_key") @db.VarChar(64)
+  xpReward    Int    @map("xp_reward")
+
+  earnedBy UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UnlockedCard {
+  userId     String   @map("user_id") @db.Uuid
+  cardId     String   @map("card_id") @db.VarChar(64)
+  unlockedAt DateTime @default(now()) @map("unlocked_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@id([userId, cardId])
+  @@map("unlocked_cards")
+}
+
+model UnlockedPassive {
+  userId     String   @map("user_id") @db.Uuid
+  passiveId  String   @map("passive_id") @db.VarChar(64)
+  unlockedAt DateTime @default(now()) @map("unlocked_at") @db.Timestamptz(6)
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  passive Passive @relation(fields: [passiveId], references: [id], onDelete: Cascade)
+
+  @@id([userId, passiveId])
+  @@map("unlocked_passives")
+}
+
+model UserAchievement {
+  userId        String   @map("user_id") @db.Uuid
+  achievementId String   @map("achievement_id") @db.VarChar(64)
+  earnedAt      DateTime @default(now()) @map("earned_at") @db.Timestamptz(6)
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@id([userId, achievementId])
+  @@map("user_achievements")
+}
+
+model Deck {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  name      String   @db.VarChar(64)
+  cardIds   Json     @map("card_ids")
+  isDefault Boolean  @default(false) @map("is_default")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  matchPlayers         MatchPlayer[]
+  matchmakingQueueRows MatchmakingQueue[]
+
+  @@map("decks")
+}
+
+model Loadout {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId      String  @map("user_id") @db.Uuid
+  name        String  @db.VarChar(64)
+  passiveIds  Json    @map("passive_ids")
+  customRules Json?   @map("custom_rules")
+  isDefault   Boolean @default(false) @map("is_default")
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  matchPlayers         MatchPlayer[]
+  matchmakingQueueRows MatchmakingQueue[]
+
+  @@map("loadouts")
+}
+
+model RulePreset {
+  id         String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  authorId   String               @map("author_id") @db.Uuid
+  name       String               @db.VarChar(128)
+  payload    Json
+  visibility RulePresetVisibility
+  forkCount  Int                  @default(0) @map("fork_count")
+  createdAt  DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("rule_presets")
+}
+
+model Match {
+  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  mode         String      @db.VarChar(32)
+  status       MatchStatus
+  whiteUserId  String      @map("white_user_id") @db.Uuid
+  blackUserId  String      @map("black_user_id") @db.Uuid
+  winnerUserId String?     @map("winner_user_id") @db.Uuid
+  endedReason  String?     @map("ended_reason") @db.VarChar(32)
+  ranked       Boolean     @default(false)
+  startedAt    DateTime?   @map("started_at") @db.Timestamptz(6)
+  endedAt      DateTime?   @map("ended_at") @db.Timestamptz(6)
+
+  gameMode      GameMode       @relation(fields: [mode], references: [id])
+  whiteUser     User           @relation("MatchWhite", fields: [whiteUserId], references: [id])
+  blackUser     User           @relation("MatchBlack", fields: [blackUserId], references: [id])
+  winnerUser    User?          @relation("MatchWinner", fields: [winnerUserId], references: [id])
+  players       MatchPlayer[]
+  snapshot      MatchSnapshot?
+  moves         MatchMove[]
+  privateRooms  PrivateRoom[]
+
+  @@index([status])
+  @@index([whiteUserId, blackUserId])
+  @@map("matches")
+}
+
+model MatchPlayer {
+  matchId    String      @map("match_id") @db.Uuid
+  userId     String      @map("user_id") @db.Uuid
+  color      PlayerColor
+  deckId     String?     @map("deck_id") @db.Uuid
+  loadoutId  String?     @map("loadout_id") @db.Uuid
+  eloBefore  Int?        @map("elo_before")
+  eloAfter   Int?        @map("elo_after")
+
+  match   Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deck    Deck?    @relation(fields: [deckId], references: [id])
+  loadout Loadout? @relation(fields: [loadoutId], references: [id])
+
+  @@id([matchId, userId])
+  @@map("match_players")
+}
+
+model MatchSnapshot {
+  matchId   String   @id @map("match_id") @db.Uuid
+  state     Json
+  version   Int      @default(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@map("match_snapshots")
+}
+
+model MatchMove {
+  id            BigInt   @id @default(autoincrement())
+  matchId       String   @map("match_id") @db.Uuid
+  ply           Int
+  actionType    String   @map("action_type") @db.VarChar(32)
+  actionPayload Json     @map("action_payload")
+  stateVersion  Int      @map("state_version")
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@index([matchId, ply])
+  @@map("match_moves")
+}
+
+model PrivateRoom {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code      String    @unique @db.Char(6)
+  hostId    String    @map("host_id") @db.Uuid
+  mode      String    @db.VarChar(32)
+  rules     Json
+  matchId   String?   @map("match_id") @db.Uuid
+  expiresAt DateTime  @map("expires_at") @db.Timestamptz(6)
+
+  host  User   @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  match Match? @relation(fields: [matchId], references: [id])
+
+  @@map("private_rooms")
+}
+
+model MatchmakingQueue {
+  userId     String   @id @map("user_id") @db.Uuid
+  mode       String   @db.VarChar(32)
+  rating     Int
+  loadoutId  String   @map("loadout_id") @db.Uuid
+  deckId     String   @map("deck_id") @db.Uuid
+  enqueuedAt DateTime @default(now()) @map("enqueued_at") @db.Timestamptz(6)
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  loadout Loadout @relation(fields: [loadoutId], references: [id])
+  deck    Deck    @relation(fields: [deckId], references: [id])
+
+  @@index([mode, rating])
+  @@map("matchmaking_queue")
+}

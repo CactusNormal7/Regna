@@ -34,7 +34,9 @@ packages:
 # Optional: allow native installs for some dependencies (matches this repo)
 allowBuilds:
   "@parcel/watcher": true
+  "@prisma/engines": true
   esbuild: true
+  prisma: true
 ```
 
 ### `turbo.json` (Turborepo 2.x uses `tasks`, not `pipeline`)
@@ -119,9 +121,9 @@ Pure TypeScript, no UI or Fastify here; consumed by both `apps/client` and `apps
 ```bash
 cd apps/server
 pnpm init
-pnpm add fastify fastify-plugin @fastify/cors socket.io drizzle-orm postgres zod
+pnpm add fastify fastify-plugin @fastify/cors socket.io @prisma/client @prisma/adapter-pg @supabase/supabase-js dotenv pg zod
 pnpm add "@chess/engine@workspace:*"
-pnpm add -D typescript tsx @types/node drizzle-kit
+pnpm add -D typescript tsx @types/node @types/pg prisma
 ```
 
 Example excerpt:
@@ -132,13 +134,54 @@ Example excerpt:
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc"
+    "build": "prisma generate && tsc",
+    "typecheck": "prisma generate && tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "tsx scripts/prisma-direct.ts migrate dev",
+    "db:migrate:deploy": "tsx scripts/prisma-direct.ts migrate deploy",
+    "db:status": "tsx scripts/prisma-direct.ts migrate status"
   },
   "dependencies": {
     "@chess/engine": "workspace:*"
   }
 }
 ```
+
+### Supabase + Prisma
+
+Postgres on [Supabase](https://supabase.com). Schema: `apps/server/prisma/schema.prisma`. Migrations: `apps/server/prisma/migrations/` (not `supabase/migrations/`).
+
+```bash
+cp .env.example apps/server/.env
+# Fill apps/server/.env (Dashboard → API + Database connection strings)
+pnpm install
+
+cd apps/server
+pnpm db:generate
+pnpm db:migrate:deploy    # apply existing migrations (fresh clone / new env)
+pnpm dev
+# curl http://localhost:3001/health
+```
+
+| Variable | Role |
+| -------- | ---- |
+| `DATABASE_URL` | API runtime — transaction pooler **:6543** |
+| `DIRECT_DATABASE_URL` | Prisma CLI — session pooler **:5432** (or direct `db.<ref>.supabase.co` when reachable) |
+| `SUPABASE_*` | SDK (`SUPABASE_SERVICE_ROLE_KEY` server-only) |
+
+`apps/server/.env` is loaded with **override** at runtime and for Prisma CLI, so stale `export DATABASE_URL=…` in your shell does not win.
+
+**New migration** after editing `schema.prisma`:
+
+```bash
+cd apps/server
+pnpm db:migrate -- --name your_change
+pnpm db:generate
+```
+
+(`db:migrate` / `db:status` / `db:studio` use `DIRECT_DATABASE_URL` via `scripts/prisma-direct.ts`.)
+
+**Cursor MCP (optional):** `.mcp.json` at repo root — `project_ref=jtzhqebywdvdjmfgxewd`. Authenticate in Cursor Settings → Tools & MCP.
 
 ---
 
@@ -232,7 +275,8 @@ Regna/
 | `turbo.json` | Use **`tasks`**, declare **`typecheck`** if the root runs `turbo run typecheck`. |
 | Turborepo error on `pnpm dev` | Root needs **`packageManager`** and must **not** conflict with **`devEngines.packageManager`**. |
 | Workspace resolution | **`name`** in `packages/engine/package.json` must match **`@chess/engine`**. |
-| Server deps | Include **`fastify-plugin`** when using Fastify plugins in this repo. |
+| Server deps | Include **`fastify-plugin`** only when using Fastify plugins that need encapsulation. |
+| Server DB | **Prisma** + Supabase (not Drizzle). See § Supabase + Prisma. |
 | `npx tsc --init` | Add `--moduleResolution NodeNext` when using `"module": "NodeNext"`. |
 
 ---

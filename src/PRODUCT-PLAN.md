@@ -149,14 +149,15 @@ Regna/
 │   └── shared/               # types Zod, events Socket, DTO REST
 ├── apps/
 │   ├── client/               # Nuxt 4 + Pixi + PWA
-│   └── server/               # Fastify + Socket.IO + Drizzle
+│   └── server/               # Fastify + Socket.IO + Prisma
 │       ├── src/
 │       │   ├── index.ts
 │       │   ├── db/
 │       │   ├── routes/
 │       │   ├── socket/
 │       │   └── services/
-│       └── drizzle/
+│       ├── prisma/
+│       └── generated/prisma/
 └── docs/                     # GDD PDF, setup, TECHNICAL-LOG
 ```
 
@@ -166,7 +167,10 @@ Regna/
 
 | Variable             | Usage                     | Exemple                                       |
 | -------------------- | ------------------------- | --------------------------------------------- |
-| `DATABASE_URL`       | Postgres Drizzle          | `postgresql://user:pass@localhost:5432/regna` |
+| `DATABASE_URL`       | Prisma runtime (pooler) | Supabase transaction URL `:6543`            |
+| `DIRECT_DATABASE_URL`| Prisma CLI              | Session pooler **:5432** (or direct `db.<ref>`) |
+| `SUPABASE_URL`       | Supabase API              | `https://<ref>.supabase.co`                 |
+| `SUPABASE_*_KEY`     | Auth / admin SDK          | anon (client), service_role (server only)   |
 | `JWT_SECRET`         | Signature access token    | secret long aléatoire                         |
 | `JWT_REFRESH_SECRET` | Refresh token (option)    | secret distinct                               |
 | `CORS_ORIGIN`        | Origine client autorisée  | `http://localhost:3000`                       |
@@ -176,13 +180,28 @@ Regna/
 | `ACCESS_TOKEN_TTL`   | Durée access JWT          | `15m`                                         |
 | `REFRESH_TOKEN_TTL`  | Durée refresh             | `7d`                                          |
 
-Fichier `.env.example` à la racine ou dans `apps/server/` — **jamais** committer `.env`.
+Fichier `.env.example` à la racine → copier vers `apps/server/.env` — **jamais** committer `.env`.
+
+**Mise à jour BDD (Prisma + Supabase)** — procédure détaillée : [`docs/regna-setup.md`](../docs/regna-setup.md) § *Supabase + Prisma*.
+
+Résumé :
+
+```bash
+# Clone / nouvel environnement (migrations déjà dans le repo)
+cd apps/server && pnpm db:migrate:deploy && pnpm db:generate
+
+# Nouveau changement schema.prisma
+cd apps/server && pnpm db:migrate -- --name votre_changement && pnpm db:generate
+
+# Production
+cd apps/server && pnpm db:migrate:deploy
+```
 
 ---
 
 ## 5. Schéma base de données
 
-**ORM :** Drizzle + Postgres. **Conventions :** `uuid` PK, `timestamptz`, snake_case colonnes.
+**ORM :** Prisma + Supabase Postgres. **Conventions :** `uuid` PK, `timestamptz`, snake_case colonnes (`@@map`).
 
 ### 5.1 Diagramme entité-relation
 
@@ -787,7 +806,7 @@ Chaque sous-étape a un **livrable** et une **DoD** (Definition of Done).
 
 | ID  | Tâche                | Livrable                             | DoD                           |
 | --- | -------------------- | ------------------------------------ | ----------------------------- |
-| B1  | Drizzle setup        | `drizzle.config`, migrations         | migrate sur Postgres local    |
+| B1  | Prisma setup         | `prisma/schema`, migrations          | `db:migrate:deploy` sur Supabase (migration `init` dans le repo) |
 | B2  | Auth tables          | users, sessions                      | migration appliquée           |
 | B3  | Profil / progression | player*\*, unlocked*\*, achievements | FK cohérentes                 |
 | B4  | Catalogue            | cards, passives, game_modes + seed   | 5 cartes GDD en BDD           |
@@ -931,7 +950,7 @@ flowchart TD
 | Sujet        | Option A             | Option B           |
 | ------------ | -------------------- | ------------------ |
 | Auth v1      | Email + mot de passe | OAuth dès le début |
-| Postgres dev | Docker local         | Supabase hosted    |
+| Postgres dev | Docker local         | **Supabase hosted** (choisi) |
 | Timer partie | Sans limite v1       | Horloge par joueur |
 
 ---

@@ -1,0 +1,6 @@
+# Optional local stack (`supabase start`). Hosted schema: Prisma in apps/server.
+
+project_id = "regna"
+
+[db]
+major_version = 17
