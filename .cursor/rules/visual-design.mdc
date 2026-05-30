@@ -1,0 +1,58 @@
+---
+description: Regna visual charter — 8-bit pixel + fluid motion (Noita / Dead Cells)
+globs: apps/client/**,src/sprites/**
+alwaysApply: false
+---
+
+# Visual design — Regna
+
+**Charter (human):** `docs/visual-charter.md`. **Sprites paths:** `sprites.mdc`.
+
+## Direction (agents)
+
+- **Look:** 8-bit / pixel retro — integer grid, limited palette, strong silhouettes.
+- **Feel:** *Noita* / *Dead Cells* — **smooth motion** on top of crisp pixels (lerp, particles, brief camera shake), not static flip-book only.
+- **UI:** **full pixel** — same language as the board (bitmap fonts, square panels, no blurred CSS chrome on game screens).
+
+## Hard rules (rendering)
+
+1. **Scale:** native assets 16×16 (tiles) / 16×32 (pieces) → display at **integer ×4** (64 px cell). Other integer scales (×2, ×8) only if layout requires — never fractional scale on pixel art.
+2. **Filtering:** `SCALE_MODE.NEAREST` (Pixi) / `image-rendering: pixelated` (CSS sprites). **Never** linear/bilinear on gameplay textures.
+3. **Board asset:** `board_plain_*` for menus / builder / previews; `board_persp_*` for **live match** (`/play`).
+4. **Alignment:** snap static sprites to the pixel grid; subpixel allowed **only** during tweens on dedicated containers (piece layer, FX layer), not on UI chrome.
+5. **No** CSS `border-radius`, `box-shadow` blur, or `backdrop-filter` on in-game pixel UI — use bordered panels and palette swaps.
+
+## Pixi (`apps/client`)
+
+- **Game layer:** Pixi v8 for board, pieces, particles, screen FX.
+- **Ticker:** delta-time based updates; target 60 FPS; avoid `setInterval` for motion.
+- **Moves:** interpolate piece positions (ease-out cubic or quad), ~150–250 ms default; grid logic stays in `@chess/engine`, visuals in client.
+- **FX:** particles / short sprites for card play, evolution, capture; cap concurrent FX; pool emitters when possible.
+- **Camera:** optional container scale/position; shake amplitude ≤ 4–8 px at ×4 scale, duration ≤ 200 ms, decay fast.
+- **Textures:** load from `src/sprites/` paths (see `sprites.mdc`); one source tree — no duplicate runtime packs under `docs/`.
+
+## Vue / shell UI
+
+- Pixel **bitmap fonts** for game-facing UI (deck, HUD, modals over play).
+- Spacing in multiples of **4 px** at design scale (16 px base → 64 px cell).
+- Theme tokens: align with charter palette (`#1a1a2e`, `#16213e`, `#3D5AFE`, `#e94560`, `#eaeaea`) — extend in client CSS variables, don’t invent per-screen colors.
+- PWA `theme_color` stays `#3D5AFE` unless charter is revised in `docs/visual-charter.md`.
+
+## New assets
+
+- Export at **1×** native resolution; transparent PNG; palette ≤ 32 colors per sheet when possible.
+- New categories under `src/sprites/<category>/` (e.g. `cards/`, `ui/`).
+- Match existing piece **outline weight** and contrast before adding styles.
+
+## When changing visuals
+
+1. Update `docs/visual-charter.md` if the **direction** changes (palette, scale, board policy).
+2. Update `apps/client/README.md` if **how to run/configure** rendering changes.
+3. Append `docs/TECHNICAL-LOG.md` only for cross-cutting tech (e.g. new renderer, asset pipeline).
+
+## Anti-patterns
+
+- Smooth-scaled pixel art, HD re-draws mixed with 16 px sprites without a defined upscale pass.
+- Full-screen white flashes, long blocking animations without skip.
+- System fonts on play screens.
+- Second sprite root outside `src/sprites/`.

@@ -8,6 +8,7 @@ alwaysApply: true
 ## Product vs engineering docs
 
 - **Game design & vision:** `docs/regna.pdf` (GDD). Use it for _what_ we build (cards, chess evolution, modes), not for stack details.
+- **Visual / art direction:** `docs/visual-charter.md` + `.cursor/rules/visual-design.mdc` (8-bit pixel + fluid motion; full-pixel UI). Update the charter when direction changes; client README for implementation notes.
 - **Install & stack procedures:** `docs/regna-setup.md` (authoritative bootstrap).
 - **Architecture / DB / ops decisions:** **`docs/TECHNICAL-LOG.md`** — append-only **global engineering log** (why the stack looks this way, dated decisions, rollout notes). **Not** a how-to or feature reference.
 - **Package / area READMEs** — **how-to and reference** for what exists and how to use it. Put explanations here, not in rules, comments, or the technical log.

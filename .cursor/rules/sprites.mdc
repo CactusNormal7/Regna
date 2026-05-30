@@ -40,3 +40,4 @@ const sheet = '/sprites/chess pieces/16x32 pieces/WhitePieces-Sheet.png'
 1. Place files under the correct `src/sprites/...` subfolder.
 2. Wire the client to load from `src/sprites` paths (or copy into the client’s public/build pipeline if the project already defines one — do not invent a second source tree).
 3. Do not commit duplicate packs under `docs/` for runtime use; `docs/` is reference only.
+4. Follow **scale ×4**, **nearest** filtering, and board choice (plain vs persp) in `.cursor/rules/visual-design.mdc`.

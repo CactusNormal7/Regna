@@ -39,6 +39,24 @@
 
 ## Entries
 
+### 2026-05-24 — Visual charter v1 (8-bit + fluid motion)
+
+**What changed**
+
+- `docs/visual-charter.md`: art direction (pixel ×4, plain/persp boards, full-pixel UI, palette, motion).
+- `.cursor/rules/visual-design.mdc`: concrete Pixi/Vue rendering rules for agents.
+- `regna-project.mdc`, `sprites.mdc`, `apps/client/README.md` cross-links.
+
+**Why**
+
+- Product target: retro 8-bit readability with Noita / Dead Cells–style motion; decisions validated (scale ×4, both board types, full-pixel UI).
+
+**Follow-up**
+
+- [ ] Choose and document bitmap font(s) in client when UI work starts.
+- [ ] Implement shared Pixi scale/filter helpers once board code lands.
+- **Docs:** `visual-charter.md` + client README updated? yes
+
 ### 2026-05-22 — Server env loading + stack cleanup
 
 **What changed**

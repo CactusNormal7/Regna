@@ -49,6 +49,7 @@ pnpm dev          # client + server via Turbo
 | [`docs/regna-setup.md`](docs/regna-setup.md) | Install, monorepo layout, Supabase + Prisma |
 | [`docs/TECHNICAL-LOG.md`](docs/TECHNICAL-LOG.md) | Architecture and stack decisions (append-only) |
 | [`docs/regna.pdf`](docs/regna.pdf) | Game design (GDD) |
+| [`docs/visual-charter.md`](docs/visual-charter.md) | Art direction — 8-bit pixel, fluid motion |
 | [`src/PRODUCT-PLAN.md`](src/PRODUCT-PLAN.md) | Engineering roadmap, DB schema, API contracts |
 | [`src/README.md`](src/README.md) | Product docs and assets under `src/` |
 
