@@ -1,6 +1,12 @@
 <template>
-  <div>
+  <div class="regna-app pixel-ui">
     <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+    <NuxtPage />
   </div>
 </template>
+
+<style scoped>
+.regna-app {
+  min-height: 100dvh;
+}
+</style>

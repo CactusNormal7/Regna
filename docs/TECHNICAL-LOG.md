@@ -39,6 +39,41 @@
 
 ## Entries
 
+### 2026-05-30 — Pixi steps B+C (board preview)
+
+**What changed**
+
+- `usePixiApp` / `usePixiBoard` composables; `mount-board-preview`, `plain-board` helpers.
+- `PixiBoardPreview` on home (plain grid + persp toggle, W king test).
+- `pnpm font:check`; CSS moved to `app/assets/` (Nuxt 4).
+
+**Why**
+
+- Validate sprite pipeline and ×4 scale before engine integration.
+
+**Follow-up**
+
+- [ ] Persp board cell mapping (piece placement per square).
+- [ ] Step D: engine position → sprites + move tweens.
+- **Docs:** client README updated? yes
+
+### 2026-05-24 — m6x11 + Pixi visual scaffold
+
+**What changed**
+
+- Client: `lib/visual`, `lib/pixi` (nearest textures, layers, tween, camera shake, grid helpers), `pixel-theme.css`, `/sprites` nitro alias, home page preview.
+- Font workflow: `public/fonts/README.md` + attribution; m6x11 as primary typeface in charter.
+
+**Why**
+
+- Validate full-pixel UI with m6x11; shared constants for Vue + Pixi before board implementation.
+
+**Follow-up**
+
+- [ ] Add `m6x11.ttf` locally from itch.io on each dev machine.
+- [ ] `usePixiBoard` composable when `/play` route starts.
+- **Docs:** client README + visual-charter updated? yes
+
 ### 2026-05-24 — Visual charter v1 (8-bit + fluid motion)
 
 **What changed**

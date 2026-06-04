@@ -33,7 +33,7 @@ alwaysApply: false
 
 ## Vue / shell UI
 
-- Pixel **bitmap fonts** for game-facing UI (deck, HUD, modals over play).
+- **Font:** **m6x11** at 16 / 32 / 48 px (`public/fonts/m6x11.ttf`, attribution required). Helpers: `lib/visual/`, `lib/pixi/`, `assets/css/pixel-theme.css`.
 - Spacing in multiples of **4 px** at design scale (16 px base → 64 px cell).
 - Theme tokens: align with charter palette (`#1a1a2e`, `#16213e`, `#3D5AFE`, `#e94560`, `#eaeaea`) — extend in client CSS variables, don’t invent per-screen colors.
 - PWA `theme_color` stays `#3D5AFE` unless charter is revised in `docs/visual-charter.md`.

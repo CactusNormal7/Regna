@@ -22,3 +22,6 @@ logs
 .env
 .env.*
 !.env.example
+
+# Bitmap fonts (download from https://managore.itch.io/m6x11)
+public/fonts/*.ttf

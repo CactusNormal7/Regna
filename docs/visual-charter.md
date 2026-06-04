@@ -29,9 +29,11 @@ Grille logique 8×8 ; rendu Pixi aligné sur la case 64 px.
 
 ## UI (full pixel)
 
-- Polices **bitmap / pixel** uniquement pour texte UI (pas de system-ui sur les écrans jeu).
+- **Police principale :** [m6x11](https://managore.itch.io/m6x11) (Daniel Linssen) — tailles **16 / 32 / 48 px** uniquement ; attribution requise.
+- **Optionnel :** m6x11plus (18 / 36 / 54 px) pour caractères étendus.
+- Fichier local : `apps/client/public/fonts/m6x11.ttf` (voir `public/fonts/README.md`).
+- Classes CSS : `.pixel-ui`, `.pixel-ui--md`, `.pixel-ui--lg` (`app/assets/css/pixel-theme.css`).
 - Bordures **1 px** (à l’échelle source), coins **carrés** — pas de `border-radius` sur les panneaux pixel.
-- Boutons : états hover/pressed par **sprite ou palette swap**, pas de transition CSS floue.
 - Icônes cartes / passifs : même densité pixel que les pièces (16 ou 32 px de base avant scale).
 
 ## Palette (v1 — à affiner)

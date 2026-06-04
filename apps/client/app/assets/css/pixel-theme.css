@@ -1,0 +1,76 @@
+@font-face {
+  font-family: "m6x11";
+  src: url("/fonts/m6x11.ttf") format("truetype");
+  font-display: block;
+}
+
+:root {
+  --regna-bg: #1a1a2e;
+  --regna-surface: #16213e;
+  --regna-accent: #3d5afe;
+  --regna-danger: #e94560;
+  --regna-text: #eaeaea;
+  --regna-text-muted: #a0a0b0;
+
+  --regna-font: "m6x11", ui-monospace, monospace;
+  --regna-font-sm: 16px;
+  --regna-font-md: 32px;
+  --regna-font-lg: 48px;
+
+  --regna-space: 4px;
+  --regna-cell: 64px;
+}
+
+html {
+  background: var(--regna-bg);
+  color: var(--regna-text);
+}
+
+.pixel-ui {
+  font-family: var(--regna-font);
+  font-size: var(--regna-font-sm);
+  line-height: 1;
+  letter-spacing: 0;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+  text-rendering: geometricPrecision;
+}
+
+.pixel-ui--md {
+  font-size: var(--regna-font-md);
+}
+
+.pixel-ui--lg {
+  font-size: var(--regna-font-lg);
+}
+
+.pixel-panel {
+  background: var(--regna-surface);
+  border: 4px solid var(--regna-text-muted);
+  box-shadow: none;
+  border-radius: 0;
+  padding: calc(var(--regna-space) * 4);
+}
+
+.pixel-btn {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--regna-text);
+  background: var(--regna-surface);
+  border: 4px solid var(--regna-accent);
+  border-radius: 0;
+  padding: calc(var(--regna-space) * 2) calc(var(--regna-space) * 4);
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+.pixel-btn:hover {
+  background: var(--regna-accent);
+  color: var(--regna-bg);
+}
+
+.pixel-sprite {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
