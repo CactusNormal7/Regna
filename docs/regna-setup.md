@@ -1,21 +1,91 @@
-# Regna — Monorepo setup (pnpm, Turborepo, Nuxt 4, Fastify)
+# Regna — guide de démarrage
 
-Corrected guide aligned with this repository. French version of the visual doc: `docs/HTML text.html`. **Architecture and install-related decisions over time:** see **`docs/TECHNICAL-LOG.md`** (append-only).
+Authoritative bootstrap guide for this repository. **Architecture and install-related decisions over time:** see **`docs/TECHNICAL-LOG.md`** (append-only).
 
 ---
 
-## 1. Prerequisites — install pnpm
+## Démarrage rapide (repo existant)
 
 ```bash
-npm install -g pnpm
-pnpm --version
-```
+# 1. Prérequis
+corepack enable && corepack prepare pnpm@11.1.3 --activate
+node --version  # 20+
 
-Corepack is also valid: `corepack enable && corepack prepare pnpm@11.1.3 --activate`.
+# 2. Dépendances
+pnpm install
+
+# 3. Env server
+cp .env.example apps/server/.env
+# Remplir apps/server/.env depuis le Dashboard Supabase (§ Env variables ci-dessous)
+
+# 4. Base de données
+cd apps/server
+pnpm db:generate
+pnpm db:migrate:deploy
+cd ../..
+
+# 5. Font (étape manuelle, une fois par machine)
+# Télécharger m6x11.ttf → apps/client/public/fonts/m6x11.ttf
+# https://managore.itch.io/m6x11 — attribution : Daniel Linssen
+cd apps/client && pnpm font:check && cd ../..
+
+# 6. Lancer
+pnpm dev
+# Client → http://localhost:3000
+# Server → http://localhost:3001/health
+```
 
 ---
 
-## 2. Root monorepo
+## Variables d'environnement (server)
+
+Fichier : `apps/server/.env` (copié de `.env.example`, jamais commité).
+
+| Variable | Rôle | Source |
+| -------- | ---- | ------ |
+| `DATABASE_URL` | Runtime — transaction pooler **:6543** | Dashboard Supabase → Database → Connection string |
+| `DIRECT_DATABASE_URL` | Prisma CLI — session pooler **:5432** | Même dashboard, URL `:5432` |
+| `SUPABASE_URL` | SDK Supabase | Dashboard → API → Project URL |
+| `SUPABASE_ANON_KEY` | SDK côté client (non-secret) | Dashboard → API → anon key |
+| `SUPABASE_SERVICE_ROLE_KEY` | SDK côté server — **ne jamais exposer au client** | Dashboard → API → service_role key |
+| `JWT_SECRET`, `JWT_REFRESH_SECRET` | Auth tokens — générer localement | `openssl rand -hex 32` |
+| `CORS_ORIGIN` | Origine autorisée | `http://localhost:3000` en dev |
+| `PORT` | Port API | `3001` par défaut |
+
+> **Règle d'override :** `apps/server/.env` est chargé avec `override: true` — il écrase les éventuels `export DATABASE_URL=…` dans votre shell. Évite les conflits après un reset de mot de passe Supabase.
+
+---
+
+## Base de données (Prisma + Supabase)
+
+Postgres hébergé sur [Supabase](https://supabase.com). **Prisma** est l'ORM et le gestionnaire de migrations — `supabase/migrations/` n'est pas utilisé.
+
+```bash
+cd apps/server
+
+# Après avoir modifié prisma/schema.prisma
+pnpm db:migrate -- --name nom_du_changement   # crée et applique la migration
+pnpm db:generate                              # régénère le client Prisma
+
+# Vérifier l'état
+pnpm db:status
+
+# Prototype sans fichier de migration (dev uniquement)
+pnpm db:push
+
+# Interface graphique
+pnpm db:studio
+```
+
+`db:migrate*`, `db:status`, `db:push` et `db:studio` passent par `scripts/prisma-direct.ts` qui injecte `DIRECT_DATABASE_URL` — le pooler transaction `:6543` génère des erreurs "prepared statement" avec la CLI Prisma.
+
+---
+
+## Monorepo from scratch (référence)
+
+Cette section documente comment la structure a été créée. Pour un clone existant, seul le démarrage rapide ci-dessus est nécessaire.
+
+### Structure pnpm + Turborepo
 
 ```bash
 mkdir regna && cd regna
@@ -24,14 +94,13 @@ pnpm add -D turbo typescript
 mkdir -p packages/engine apps/client apps/server
 ```
 
-### `pnpm-workspace.yaml`
+**`pnpm-workspace.yaml`**
 
 ```yaml
 packages:
   - "packages/*"
   - "apps/*"
 
-# Optional: allow native installs for some dependencies (matches this repo)
 allowBuilds:
   "@parcel/watcher": true
   "@prisma/engines": true
@@ -39,25 +108,19 @@ allowBuilds:
   prisma: true
 ```
 
-### `turbo.json` (Turborepo 2.x uses `tasks`, not `pipeline`)
+**`turbo.json`** — Turborepo 2.x utilise `tasks`, pas `pipeline`
 
 ```json
 {
   "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
+    "build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
+    "dev":   { "cache": false, "persistent": true },
     "typecheck": {}
   }
 }
 ```
 
-### Root `package.json` essentials
+**`package.json` racine**
 
 ```json
 {
@@ -67,19 +130,13 @@ allowBuilds:
     "dev": "turbo run dev",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck"
-  },
-  "devDependencies": {
-    "turbo": "^2.9.14",
-    "typescript": "^6.0.3"
   }
 }
 ```
 
-**Turborepo + pnpm:** Do **not** combine the root `packageManager` field with `devEngines.packageManager` in the same `package.json`. Turborepo reports that it will ignore `packageManager` and workspace resolution can fail (e.g. “Missing `packageManager` field” / “Could not resolve workspaces”). Use **only** `"packageManager": "pnpm@…"`.
+> **Attention Turborepo :** ne pas combiner `packageManager` et `devEngines.packageManager` dans le même `package.json`. Turborepo ignore alors `packageManager` et la résolution des workspaces échoue ("Missing packageManager"). N'utiliser que `"packageManager": "pnpm@…"`.
 
----
-
-## 3. `packages/engine` — shared rules engine
+### `packages/engine` — moteur de règles
 
 ```bash
 cd packages/engine
@@ -89,200 +146,67 @@ pnpm add -D typescript
 npx tsc --init --strict --target ES2022 --module NodeNext --moduleResolution NodeNext --outDir dist
 ```
 
-### `packages/engine/package.json` (important)
-
-The **`name`** field must match workspace dependencies (e.g. `"@chess/engine"`), not only the folder name `engine`.
+Le champ `"name"` **doit** être `@chess/engine` (pas seulement `engine`) pour que les dépendances `workspace:*` se résolvent.
 
 ```json
 {
   "name": "@chess/engine",
-  "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
-  "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc"
-  },
-  "dependencies": {
-    "zod": "^4.4.3"
-  },
-  "devDependencies": {
-    "typescript": "^6.0.3"
-  }
+  "scripts": { "dev": "tsc --watch", "build": "tsc" }
 }
 ```
 
-Pure TypeScript, no UI or Fastify here; consumed by both `apps/client` and `apps/server`.
+TypeScript pur, sans imports UI ni Fastify — partagé par `apps/client` et `apps/server`.
 
----
-
-## 4. `apps/server` — Fastify + Socket.IO
+### `apps/server` — Fastify + Socket.IO + Prisma
 
 ```bash
 cd apps/server
-pnpm init
-pnpm add fastify fastify-plugin @fastify/cors socket.io @prisma/client @prisma/adapter-pg @supabase/supabase-js dotenv pg zod
+pnpm add fastify @fastify/cors socket.io @prisma/client @prisma/adapter-pg @supabase/supabase-js dotenv pg zod
 pnpm add "@chess/engine@workspace:*"
 pnpm add -D typescript tsx @types/node @types/pg prisma
 ```
 
-Example excerpt:
+> `fastify-plugin` n'est nécessaire que pour les plugins Fastify avec encapsulation — ne pas l'ajouter par défaut.
 
-```json
-{
-  "name": "server",
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "prisma generate && tsc",
-    "typecheck": "prisma generate && tsc --noEmit",
-    "db:generate": "prisma generate",
-    "db:migrate": "tsx scripts/prisma-direct.ts migrate dev",
-    "db:migrate:deploy": "tsx scripts/prisma-direct.ts migrate deploy",
-    "db:status": "tsx scripts/prisma-direct.ts migrate status"
-  },
-  "dependencies": {
-    "@chess/engine": "workspace:*"
-  }
-}
-```
-
-### Supabase + Prisma
-
-Postgres on [Supabase](https://supabase.com). Schema: `apps/server/prisma/schema.prisma`. Migrations: `apps/server/prisma/migrations/` (not `supabase/migrations/`).
-
-```bash
-cp .env.example apps/server/.env
-# Fill apps/server/.env (Dashboard → API + Database connection strings)
-pnpm install
-
-cd apps/server
-pnpm db:generate
-pnpm db:migrate:deploy    # apply existing migrations (fresh clone / new env)
-pnpm dev
-# curl http://localhost:3001/health
-```
-
-| Variable | Role |
-| -------- | ---- |
-| `DATABASE_URL` | API runtime — transaction pooler **:6543** |
-| `DIRECT_DATABASE_URL` | Prisma CLI — session pooler **:5432** (or direct `db.<ref>.supabase.co` when reachable) |
-| `SUPABASE_*` | SDK (`SUPABASE_SERVICE_ROLE_KEY` server-only) |
-
-`apps/server/.env` is loaded with **override** at runtime and for Prisma CLI, so stale `export DATABASE_URL=…` in your shell does not win.
-
-**New migration** after editing `schema.prisma`:
-
-```bash
-cd apps/server
-pnpm db:migrate -- --name your_change
-pnpm db:generate
-```
-
-(`db:migrate` / `db:status` / `db:studio` use `DIRECT_DATABASE_URL` via `scripts/prisma-direct.ts`.)
-
-**Cursor MCP (optional):** `.mcp.json` at repo root — `project_ref=jtzhqebywdvdjmfgxewd`. Authenticate in Cursor Settings → Tools & MCP.
-
----
-
-## 5. `apps/client` — Nuxt 4 + PixiJS
-
-This repo uses **Nuxt 4** (not Nuxt 3).
+### `apps/client` — Nuxt 4 + PixiJS
 
 ```bash
 pnpm dlx nuxi@latest init apps/client
-# In prompts: minimal, pnpm; avoid duplicating a nested git repo if you already have one at monorepo root.
-```
+# Choisir : minimal, pnpm, pas de git nested
 
-If pnpm blocks postinstall builds:
+pnpm approve-builds   # si pnpm bloque les postinstall scripts
 
-```bash
-pnpm approve-builds
-```
-
-Dependencies (align with current app):
-
-```bash
 cd apps/client
 pnpm add pixi.js @vueuse/core vue vue-router "@chess/engine@workspace:*"
 pnpm add -D @vite-pwa/nuxt
 pnpm add nuxt@^4
 ```
 
-### `nuxt.config.ts` (minimal, as in repo)
-
-```ts
-export default defineNuxtConfig({
-  modules: ['@vite-pwa/nuxt'],
-  pwa: {
-    manifest: {
-      name: 'Regna',
-      short_name: 'Regna',
-      theme_color: '#3D5AFE'
-    }
-  }
-})
-```
-
-**PWA:** Do not use `@nuxtjs/pwa` — it is unmaintained and not appropriate for Nuxt 4; use **`@vite-pwa/nuxt`**.
-
-App package naming in this repo: `"name": "client"` with `"private": true` is fine.
+> Ne pas utiliser `@nuxtjs/pwa` — abandonné, incompatible Nuxt 4. Utiliser **`@vite-pwa/nuxt`**.
 
 ---
 
-## 6. Final install & dev
-
-From the repository root (where `pnpm-workspace.yaml` lives):
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Run only the client:
-
-```bash
-cd apps/client && pnpm dev
-```
-
-**pnpm:** Prefer `pnpm install` from the root so every workspace package links consistently. Installing from a subpackage still resolves the workspace root in many setups; the important part is keeping all `package.json` files coherent.
-
----
-
-## 7. Expected layout
+## Structure attendue
 
 ```text
 Regna/
 ├── packages/
-│   └── engine/           # npm name: @chess/engine
+│   └── engine/          # @chess/engine — moteur pur TS
 ├── apps/
-│   ├── server/
-│   └── client/           # Nuxt 4 + PixiJS
+│   ├── server/          # Fastify + Socket.IO + Prisma
+│   └── client/          # Nuxt 4 + PixiJS + PWA
+├── src/
+│   └── sprites/         # Assets source (chess pieces, boards…)
+├── docs/                # GDD, charte, setup, technical log
+├── .env.example         # Modèle → cp vers apps/server/.env
 ├── pnpm-workspace.yaml
-├── turbo.json
-└── package.json
+└── turbo.json
 ```
 
 ---
 
-## Changelog vs old HTML draft
+## MCP Supabase (optionnel)
 
-| Issue | Correction |
-|--------|------------|
-| `@regna/engine` vs real package | Workspace package is **`@chess/engine`**. |
-| `@regna/client` / `@regna/server` | Apps use **`client`** and **`server`**. |
-| Nuxt “3” | Stack is **Nuxt 4**. |
-| `turbo.json` | Use **`tasks`**, declare **`typecheck`** if the root runs `turbo run typecheck`. |
-| Turborepo error on `pnpm dev` | Root needs **`packageManager`** and must **not** conflict with **`devEngines.packageManager`**. |
-| Workspace resolution | **`name`** in `packages/engine/package.json` must match **`@chess/engine`**. |
-| Server deps | Include **`fastify-plugin`** only when using Fastify plugins that need encapsulation. |
-| Server DB | **Prisma** + Supabase (not Drizzle). See § Supabase + Prisma. |
-| `npx tsc --init` | Add `--moduleResolution NodeNext` when using `"module": "NodeNext"`. |
-
----
-
-## Exporting to PDF
-
-- **From the editor:** open `docs/regna-setup.md`, use Markdown preview, then **Print → Save as PDF**.
-- **Pandoc** (install [Pandoc](https://pandoc.org) and a LaTeX engine if needed):  
-  `pandoc docs/regna-setup.md -o docs/regna-setup.pdf`
+`.mcp.json` à la racine — `project_ref=jtzhqebywdvdjmfgxewd`. Activer dans Cursor Settings → Tools & MCP.

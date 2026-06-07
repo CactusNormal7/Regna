@@ -2,7 +2,7 @@
 
 Document de référence pour le développement de l’application complète (auth, BDD, stats, online, PWA PC/mobile).
 
-**Références :** GDD v1 (`docs/PDF document.pdf`), synthèse `docs/1.md`, bootstrap `docs/regna-setup.md`.
+**Références :** GDD v1 (`docs/regna.pdf`), bootstrap `docs/regna-setup.md`.
 
 **État repo au 2026-05-21 :** monorepo + dépendances déclarées + sprites sous `src/sprites/` ; pas de code métier engine/server ; client = page Nuxt par défaut.
 
@@ -959,4 +959,4 @@ flowchart TD
 
 - Mettre à jour les statuts de jalon quand M0–M6 sont atteints.
 - Toute modification de schéma BDD ou contrat Socket → entrée dans `docs/TECHNICAL-LOG.md`.
-- Le GDD produit reste la source « quoi » : `docs/PDF document.pdf` ; ce fichier est la source « comment construire l’app ».
+- Le GDD produit reste la source « quoi » : `docs/regna.pdf` ; ce fichier est la source « comment construire l’app ».

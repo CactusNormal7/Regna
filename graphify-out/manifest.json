@@ -1,0 +1,632 @@
+{
+  "/home/cactus/dev/Regna/.claude/settings.json": {
+    "mtime": 1780861666.8706305,
+    "ast_hash": "bfee062c3962c14264fd704e975a6b38",
+    "semantic_hash": "bfee062c3962c14264fd704e975a6b38"
+  },
+  "/home/cactus/dev/Regna/.claude/settings.local.json": {
+    "mtime": 1780863714.4344525,
+    "ast_hash": "1c3974308687d8cc8b5cd73d26d6cbd2",
+    "semantic_hash": "1c3974308687d8cc8b5cd73d26d6cbd2"
+  },
+  "/home/cactus/dev/Regna/.mcp.json": {
+    "mtime": 1780858454.054516,
+    "ast_hash": "111d04d70cf349a5b390742a9ac1dd2f",
+    "semantic_hash": "111d04d70cf349a5b390742a9ac1dd2f"
+  },
+  "/home/cactus/dev/Regna/.vscode/settings.json": {
+    "mtime": 1780858454.0588496,
+    "ast_hash": "d5a06f98abf7d60002e506cf6498e0d8",
+    "semantic_hash": "d5a06f98abf7d60002e506cf6498e0d8"
+  },
+  "/home/cactus/dev/Regna/apps/client/app/app.vue": {
+    "mtime": 1780858454.0588496,
+    "ast_hash": "ecf3918a9096d5c7a020d1b59379f9b0",
+    "semantic_hash": "ecf3918a9096d5c7a020d1b59379f9b0"
+  },
+  "/home/cactus/dev/Regna/apps/client/components/PixiBoardPreview.vue": {
+    "mtime": 1780858454.0588496,
+    "ast_hash": "7e8d0fec984af028363f2a701f220f66",
+    "semantic_hash": "7e8d0fec984af028363f2a701f220f66"
+  },
+  "/home/cactus/dev/Regna/apps/client/composables/usePixiApp.ts": {
+    "mtime": 1780858454.0588496,
+    "ast_hash": "1632ccd341f6273ef20203a261982bae",
+    "semantic_hash": "1632ccd341f6273ef20203a261982bae"
+  },
+  "/home/cactus/dev/Regna/apps/client/composables/usePixiBoard.ts": {
+    "mtime": 1780858454.0588496,
+    "ast_hash": "e1ff1bc62e14e440f484033780289c33",
+    "semantic_hash": "e1ff1bc62e14e440f484033780289c33"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/board.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "7a2345adc1a5f29cec4ea6f5c7e08351",
+    "semantic_hash": "7a2345adc1a5f29cec4ea6f5c7e08351"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/camera.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "638d9ac2038644382ffd01a40063d65a",
+    "semantic_hash": "638d9ac2038644382ffd01a40063d65a"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/index.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "a8b3df658756bdc1bb5d8e47d26c4611",
+    "semantic_hash": "a8b3df658756bdc1bb5d8e47d26c4611"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/layers.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "8cbc1e75e596bcaa24d7e4108e2b13a1",
+    "semantic_hash": "8cbc1e75e596bcaa24d7e4108e2b13a1"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/mount-board-preview.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "fac647925b323c7ca8370a997228a1f3",
+    "semantic_hash": "fac647925b323c7ca8370a997228a1f3"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/plain-board.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "978184f5f3cdbeaec42f1dacd3a2e039",
+    "semantic_hash": "978184f5f3cdbeaec42f1dacd3a2e039"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/texture.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "50808a7415d4a654258458f00d0c9acb",
+    "semantic_hash": "50808a7415d4a654258458f00d0c9acb"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/pixi/tween.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "5b71ef02ce8fce92c411d4242add1c44",
+    "semantic_hash": "5b71ef02ce8fce92c411d4242add1c44"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/visual/constants.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "98646e86ae4a9c635d83654514e65fe1",
+    "semantic_hash": "98646e86ae4a9c635d83654514e65fe1"
+  },
+  "/home/cactus/dev/Regna/apps/client/lib/visual/index.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "ca8f4f646af63815bcdb6fab3dca2e7c",
+    "semantic_hash": "ca8f4f646af63815bcdb6fab3dca2e7c"
+  },
+  "/home/cactus/dev/Regna/apps/client/nuxt.config.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "4b776952e7b99f3f4ee5b58a172f6513",
+    "semantic_hash": "4b776952e7b99f3f4ee5b58a172f6513"
+  },
+  "/home/cactus/dev/Regna/apps/client/package.json": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "cc21b4c0299efa252db1a10cb1a3ea90",
+    "semantic_hash": "cc21b4c0299efa252db1a10cb1a3ea90"
+  },
+  "/home/cactus/dev/Regna/apps/client/pages/index.vue": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "d3185e43ccf075774176e654a460d6a6",
+    "semantic_hash": "d3185e43ccf075774176e654a460d6a6"
+  },
+  "/home/cactus/dev/Regna/apps/client/scripts/check-font.mjs": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "a2018a9fc07b33c3c94a7c1bcd7c1295",
+    "semantic_hash": "a2018a9fc07b33c3c94a7c1bcd7c1295"
+  },
+  "/home/cactus/dev/Regna/apps/client/tsconfig.json": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "99d8d7543e8bac462160e11d33e5146e",
+    "semantic_hash": "99d8d7543e8bac462160e11d33e5146e"
+  },
+  "/home/cactus/dev/Regna/apps/server/package.json": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "ee443ee8e681105115c4670a2d9a32e2",
+    "semantic_hash": "ee443ee8e681105115c4670a2d9a32e2"
+  },
+  "/home/cactus/dev/Regna/apps/server/prisma.config.ts": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "733ac279b6472679169832f072d3239e",
+    "semantic_hash": "733ac279b6472679169832f072d3239e"
+  },
+  "/home/cactus/dev/Regna/apps/server/prisma/migrations/20260522133053_init/migration.sql": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "160a37f93631100a94128204e0baf487",
+    "semantic_hash": "160a37f93631100a94128204e0baf487"
+  },
+  "/home/cactus/dev/Regna/apps/server/scripts/prisma-direct.ts": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "b9b1c14e7296e67cc72b5622f69a2d09",
+    "semantic_hash": "b9b1c14e7296e67cc72b5622f69a2d09"
+  },
+  "/home/cactus/dev/Regna/apps/server/src/db/prisma.ts": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "0166a3e037040327b28176a13a6b84b7",
+    "semantic_hash": "0166a3e037040327b28176a13a6b84b7"
+  },
+  "/home/cactus/dev/Regna/apps/server/src/env.ts": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "f6351604c8cc020bfc6cce3d793085ad",
+    "semantic_hash": "f6351604c8cc020bfc6cce3d793085ad"
+  },
+  "/home/cactus/dev/Regna/apps/server/src/index.ts": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "b68be1861c0a9db273ffa4f24246c9f9",
+    "semantic_hash": "b68be1861c0a9db273ffa4f24246c9f9"
+  },
+  "/home/cactus/dev/Regna/apps/server/src/lib/supabase.ts": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "e755a80fbee88930b5a9d0e282c074f3",
+    "semantic_hash": "e755a80fbee88930b5a9d0e282c074f3"
+  },
+  "/home/cactus/dev/Regna/apps/server/src/load-env.ts": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "3c90d683ca3794c17640c06cb0d89a83",
+    "semantic_hash": "3c90d683ca3794c17640c06cb0d89a83"
+  },
+  "/home/cactus/dev/Regna/apps/server/tsconfig.json": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "880836ec5238215caa976d1567715a3e",
+    "semantic_hash": "880836ec5238215caa976d1567715a3e"
+  },
+  "/home/cactus/dev/Regna/package.json": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "d7d0417078e58c1d1d9fa3679841088d",
+    "semantic_hash": "d7d0417078e58c1d1d9fa3679841088d"
+  },
+  "/home/cactus/dev/Regna/packages/engine/package.json": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "d6f431878632a322feef16b97c239f93",
+    "semantic_hash": "d6f431878632a322feef16b97c239f93"
+  },
+  "/home/cactus/dev/Regna/packages/engine/tsconfig.json": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "17950bdad3cb20081c33e240b51d6a88",
+    "semantic_hash": "17950bdad3cb20081c33e240b51d6a88"
+  },
+  "/home/cactus/dev/Regna/turbo.json": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "0cdce6b6b6b710765ba41fef6aeeae4e",
+    "semantic_hash": "0cdce6b6b6b710765ba41fef6aeeae4e"
+  },
+  "/home/cactus/dev/Regna/.claude/CLAUDE.md": {
+    "mtime": 1780861666.8706305,
+    "ast_hash": "db73b0edd7ffbc61ceac177130730865",
+    "semantic_hash": "db73b0edd7ffbc61ceac177130730865"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/SKILL.md": {
+    "mtime": 1780861666.8706305,
+    "ast_hash": "b57bd11db36a7c0e58f7078aa0d54614",
+    "semantic_hash": "b57bd11db36a7c0e58f7078aa0d54614"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/add-watch.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "0df0589623217ca38a12bdcabfb42f4c",
+    "semantic_hash": "0df0589623217ca38a12bdcabfb42f4c"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/exports.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "7fb1a81aca17a462db70684a324fcfb0",
+    "semantic_hash": "7fb1a81aca17a462db70684a324fcfb0"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/extraction-spec.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "24808b03abfeaf5f6435bb69c0125b2c",
+    "semantic_hash": "24808b03abfeaf5f6435bb69c0125b2c"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/github-and-merge.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "cde13df085e4c492aeb7ba298a996d0d",
+    "semantic_hash": "cde13df085e4c492aeb7ba298a996d0d"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/hooks.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "3f545db6ce646650bb9de588f5512a27",
+    "semantic_hash": "3f545db6ce646650bb9de588f5512a27"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/query.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "8b40ed8c9e9060fc215219a8fc964091",
+    "semantic_hash": "8b40ed8c9e9060fc215219a8fc964091"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/transcribe.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "70f6aa30d6211f3a2c7e9fc45479f50c",
+    "semantic_hash": "70f6aa30d6211f3a2c7e9fc45479f50c"
+  },
+  "/home/cactus/dev/Regna/.claude/skills/graphify/references/update.md": {
+    "mtime": 1780861656.6906066,
+    "ast_hash": "0dad167a95bdb389f02fecffb60b1bc8",
+    "semantic_hash": "0dad167a95bdb389f02fecffb60b1bc8"
+  },
+  "/home/cactus/dev/Regna/CLAUDE.md": {
+    "mtime": 1780861666.8706305,
+    "ast_hash": "18746c20a0dd92d67a24df119786ecce",
+    "semantic_hash": "18746c20a0dd92d67a24df119786ecce"
+  },
+  "/home/cactus/dev/Regna/README.md": {
+    "mtime": 1780858454.0588496,
+    "ast_hash": "8890326fbaea0362ae48c4480a24574f",
+    "semantic_hash": "8890326fbaea0362ae48c4480a24574f"
+  },
+  "/home/cactus/dev/Regna/apps/client/README.md": {
+    "mtime": 1780858454.0588496,
+    "ast_hash": "43e229013d76824646dcd42a8759a4de",
+    "semantic_hash": "43e229013d76824646dcd42a8759a4de"
+  },
+  "/home/cactus/dev/Regna/apps/client/public/fonts/ATTRIBUTION.md": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "a138bf3c2fc12722597cd80f0c3db138",
+    "semantic_hash": "a138bf3c2fc12722597cd80f0c3db138"
+  },
+  "/home/cactus/dev/Regna/apps/client/public/fonts/README.md": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "ef869b8ab7e59ef9cb47d6d1627495df",
+    "semantic_hash": "ef869b8ab7e59ef9cb47d6d1627495df"
+  },
+  "/home/cactus/dev/Regna/apps/client/public/robots.txt": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "243b03ecba82dde9612cd5163145a86d",
+    "semantic_hash": "243b03ecba82dde9612cd5163145a86d"
+  },
+  "/home/cactus/dev/Regna/apps/server/README.md": {
+    "mtime": 1780858454.0631828,
+    "ast_hash": "58081e4ac4d9dc2ca780e543b0add870",
+    "semantic_hash": "58081e4ac4d9dc2ca780e543b0add870"
+  },
+  "/home/cactus/dev/Regna/docs/README.md": {
+    "mtime": 1780860110.54271,
+    "ast_hash": "66eb7687f759132a1ce53837b28d6a90",
+    "semantic_hash": "66eb7687f759132a1ce53837b28d6a90"
+  },
+  "/home/cactus/dev/Regna/docs/TECHNICAL-LOG.md": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "2f40dff3fa9cf1d2eb1406aac78b48f0",
+    "semantic_hash": "2f40dff3fa9cf1d2eb1406aac78b48f0"
+  },
+  "/home/cactus/dev/Regna/docs/_archive/perplexity-gdd-and-stack-chat.md": {
+    "mtime": 1780858454.067516,
+    "ast_hash": "49db4b8a81d393491b44082928b27649",
+    "semantic_hash": "49db4b8a81d393491b44082928b27649"
+  },
+  "/home/cactus/dev/Regna/docs/_archive/setup-v0-drizzle.html": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "0b576184002987c6d68adafd3551f175",
+    "semantic_hash": "0b576184002987c6d68adafd3551f175"
+  },
+  "/home/cactus/dev/Regna/docs/regna-setup.md": {
+    "mtime": 1780860098.6907115,
+    "ast_hash": "5ad5778a94c7ff5b441fc0e71bf8dd64",
+    "semantic_hash": "5ad5778a94c7ff5b441fc0e71bf8dd64"
+  },
+  "/home/cactus/dev/Regna/docs/visual-charter.md": {
+    "mtime": 1780860041.9707146,
+    "ast_hash": "051f810bb60703b92fd5754b2eb4f25b",
+    "semantic_hash": "051f810bb60703b92fd5754b2eb4f25b"
+  },
+  "/home/cactus/dev/Regna/pnpm-workspace.yaml": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "3257e8c5aea382a38b67bb202727c0b6",
+    "semantic_hash": "3257e8c5aea382a38b67bb202727c0b6"
+  },
+  "/home/cactus/dev/Regna/src/PRODUCT-PLAN.md": {
+    "mtime": 1780860010.0707211,
+    "ast_hash": "08dae2f7f2500cb41b8b6c1bb3d5033a",
+    "semantic_hash": "08dae2f7f2500cb41b8b6c1bb3d5033a"
+  },
+  "/home/cactus/dev/Regna/src/README.md": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "bce489cc344c84c4b4463f89cc9140ef",
+    "semantic_hash": "bce489cc344c84c4b4463f89cc9140ef"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/README.txt": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "602c02501e96b5f62f3e043704108e3c",
+    "semantic_hash": "602c02501e96b5f62f3e043704108e3c"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/README.txt": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "cdd7979c2290c7bfc113f3a5dfe570f0",
+    "semantic_hash": "cdd7979c2290c7bfc113f3a5dfe570f0"
+  },
+  "/home/cactus/dev/Regna/docs/_archive/gdd-reportlab-alt.pdf": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "f5b4688811218b8871a349dc4f6a6657",
+    "semantic_hash": "f5b4688811218b8871a349dc4f6a6657"
+  },
+  "/home/cactus/dev/Regna/docs/_archive/gdd-reportlab-original.pdf": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "d18b6db3bc6f7a7e44b5f40271cdb2a4",
+    "semantic_hash": "d18b6db3bc6f7a7e44b5f40271cdb2a4"
+  },
+  "/home/cactus/dev/Regna/docs/_archive/perplexity-stack-pdf.pdf": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "5ac407536c9bf2a7f5b4ba9818024a4a",
+    "semantic_hash": "5ac407536c9bf2a7f5b4ba9818024a4a"
+  },
+  "/home/cactus/dev/Regna/docs/_archive/regna-setup-export.pdf": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "29dd1448d8c51323cbea2075f70f4ae4",
+    "semantic_hash": "29dd1448d8c51323cbea2075f70f4ae4"
+  },
+  "/home/cactus/dev/Regna/docs/regna.pdf": {
+    "mtime": 1780858454.0718496,
+    "ast_hash": "8a96ec9f8f124efec32f3a6850a70a34",
+    "semantic_hash": "8a96ec9f8f124efec32f3a6850a70a34"
+  },
+  "/home/cactus/dev/Regna/src/PRODUCT-PLAN.pdf": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "0004c854dacb8c3d21e7ccb6fc012c6f",
+    "semantic_hash": "0004c854dacb8c3d21e7ccb6fc012c6f"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/BlackPieces.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "81f50e1d873fe4f02b7aed9627c730ec",
+    "semantic_hash": "81f50e1d873fe4f02b7aed9627c730ec"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/BlackPieces_Simplified.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "47fc2d7a2a1ace5c082e62578380def5",
+    "semantic_hash": "47fc2d7a2a1ace5c082e62578380def5"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/BlackPieces_Wood.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "018208be8922014de0d326a60b8eff78",
+    "semantic_hash": "018208be8922014de0d326a60b8eff78"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/BlackPieces_WoodSimplified.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "7d996fd8a3a7c98a593938b96138c790",
+    "semantic_hash": "7d996fd8a3a7c98a593938b96138c790"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/WhitePieces.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "db72b65d9ef2e2fa4732e8055c0be018",
+    "semantic_hash": "db72b65d9ef2e2fa4732e8055c0be018"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/WhitePieces_Simplified.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "5ef40ff623da45e9a512eef920580f97",
+    "semantic_hash": "5ef40ff623da45e9a512eef920580f97"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/WhitePieces_Wood.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "d76f3023cf871b13ec261ad09490a152",
+    "semantic_hash": "d76f3023cf871b13ec261ad09490a152"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x16 pieces/WhitePieces_WoodSimplified.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "4d80bde315d97619097ef15e30077151",
+    "semantic_hash": "4d80bde315d97619097ef15e30077151"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/B_Bishop.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "7c85616a680fe46f987c1eaffaa29a98",
+    "semantic_hash": "7c85616a680fe46f987c1eaffaa29a98"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/B_King.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "e1aedab4cb64b77d4d9364e93b908068",
+    "semantic_hash": "e1aedab4cb64b77d4d9364e93b908068"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/B_Knight.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "f9e04332376b96e7379bdab8fd18b5bb",
+    "semantic_hash": "f9e04332376b96e7379bdab8fd18b5bb"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/B_Pawn.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "d3b0301049e7938301a312338eece790",
+    "semantic_hash": "d3b0301049e7938301a312338eece790"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/B_Queen.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "8d32a325e7bfb59f4e418627fe012c1d",
+    "semantic_hash": "8d32a325e7bfb59f4e418627fe012c1d"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/B_Rook.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "acd58980c89cdb32cb0036bc299e8b26",
+    "semantic_hash": "acd58980c89cdb32cb0036bc299e8b26"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/BlackPieces-Sheet.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "e4555f87f15c6dfd4af27ba0218ebc2d",
+    "semantic_hash": "e4555f87f15c6dfd4af27ba0218ebc2d"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/BlackPiecesWood-Sheet.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "24be963bfcb1292d755568a0313612b4",
+    "semantic_hash": "24be963bfcb1292d755568a0313612b4"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/W_Bishop.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "55d6e0bfde2f386a48480828c80607e3",
+    "semantic_hash": "55d6e0bfde2f386a48480828c80607e3"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/W_King.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "715db1ce13e89209382067087d42477f",
+    "semantic_hash": "715db1ce13e89209382067087d42477f"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/W_Knight.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "f0cc7bfd603022363de1ca16e3f9af04",
+    "semantic_hash": "f0cc7bfd603022363de1ca16e3f9af04"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/W_Pawn.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "ba5e69873587a2850bbcc413d2df88da",
+    "semantic_hash": "ba5e69873587a2850bbcc413d2df88da"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/W_Queen.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "f7f2cded147454c06c7ee87ac40593a1",
+    "semantic_hash": "f7f2cded147454c06c7ee87ac40593a1"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/W_Rook.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "947fa886d9e451bff7917ad0217fe294",
+    "semantic_hash": "947fa886d9e451bff7917ad0217fe294"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/WhitePieces-Sheet.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "b774359248238544a134ebf8cb6f2935",
+    "semantic_hash": "b774359248238544a134ebf8cb6f2935"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/16x32 pieces/WhitePiecesWood-Sheet.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "8707f0a5b162941b3f87b4bde58cf38a",
+    "semantic_hash": "8707f0a5b162941b3f87b4bde58cf38a"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_persp_01.png": {
+    "mtime": 1780858454.0761828,
+    "ast_hash": "3711dc5139c320e127add8a03f6d1d3e",
+    "semantic_hash": "3711dc5139c320e127add8a03f6d1d3e"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_persp_02.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "e1b2a08c9c09bad5017b357c8903214d",
+    "semantic_hash": "e1b2a08c9c09bad5017b357c8903214d"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_persp_03.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "3e5f33e74a8cf70968bf562f32a62dcb",
+    "semantic_hash": "3e5f33e74a8cf70968bf562f32a62dcb"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_persp_04.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "f6e108b006623c8664d5d058de7d1ba7",
+    "semantic_hash": "f6e108b006623c8664d5d058de7d1ba7"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_persp_05.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "57ffcdd0a61d5de598a4ec8dd00661f7",
+    "semantic_hash": "57ffcdd0a61d5de598a4ec8dd00661f7"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_plain_01.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "2fd3be3c35a7cb26d7c8f9ac7a5977d1",
+    "semantic_hash": "2fd3be3c35a7cb26d7c8f9ac7a5977d1"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_plain_02.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "63df39179b7e6356f33f21f603e57931",
+    "semantic_hash": "63df39179b7e6356f33f21f603e57931"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_plain_03.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "ba417460569f20a53fda46947f7083d5",
+    "semantic_hash": "ba417460569f20a53fda46947f7083d5"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_plain_04.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "5783ad665c2f4ffb99faded19a152374",
+    "semantic_hash": "5783ad665c2f4ffb99faded19a152374"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/boards/board_plain_05.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "3be274ef65956563b8431796ad2c4662",
+    "semantic_hash": "3be274ef65956563b8431796ad2c4662"
+  },
+  "/home/cactus/dev/Regna/src/sprites/chess pieces/cursor.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "d0ea6294a85d69f4eec7d18643a27ef6",
+    "semantic_hash": "d0ea6294a85d69f4eec7d18643a27ef6"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x16 pieces/BlackPieces.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "857d7ec8e83d1eb0ec9d21ef29d5d1c1",
+    "semantic_hash": "857d7ec8e83d1eb0ec9d21ef29d5d1c1"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x16 pieces/WhitePieces.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "464c0dc9aa70e8cda9259fe763b443e5",
+    "semantic_hash": "464c0dc9aa70e8cda9259fe763b443e5"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/BPieces-Sheet.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "8fc2165520b4ce1a9a398e2db5fd2763",
+    "semantic_hash": "8fc2165520b4ce1a9a398e2db5fd2763"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/B_Bishop.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "2e6ae78c61ea8dc722e56bc686d4fe52",
+    "semantic_hash": "2e6ae78c61ea8dc722e56bc686d4fe52"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/B_King.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "b1372852e7e8a504b1ed648d68367241",
+    "semantic_hash": "b1372852e7e8a504b1ed648d68367241"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/B_Knight.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "f0e2b099f2b5c48df9b5761a621c1058",
+    "semantic_hash": "f0e2b099f2b5c48df9b5761a621c1058"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/B_Pawn.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "a36b68b9335cc6cfe3f68c594461a732",
+    "semantic_hash": "a36b68b9335cc6cfe3f68c594461a732"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/B_Queen.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "6778a108dcc943c8b9c79c7ec046655a",
+    "semantic_hash": "6778a108dcc943c8b9c79c7ec046655a"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/B_Rook.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "f85151b244f3ea51af32bc1f81f4268d",
+    "semantic_hash": "f85151b244f3ea51af32bc1f81f4268d"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/WPieces-Sheet.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "23120b3b87874a9656293ddc7fa26414",
+    "semantic_hash": "23120b3b87874a9656293ddc7fa26414"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/W_Bishop.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "bc0d339e094bbdb0551355d115ff7e48",
+    "semantic_hash": "bc0d339e094bbdb0551355d115ff7e48"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/W_King.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "73a9a510dd63d122819a6f3bddd523a3",
+    "semantic_hash": "73a9a510dd63d122819a6f3bddd523a3"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/W_Knight.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "f0248f9221a7b7626db660f7d2a88e08",
+    "semantic_hash": "f0248f9221a7b7626db660f7d2a88e08"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/W_Pawn.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "2e0a2ed1c2ea938eb9eb59fb1587eab9",
+    "semantic_hash": "2e0a2ed1c2ea938eb9eb59fb1587eab9"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/W_Queen.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "2c6add184c9646e78a35b84295a7d201",
+    "semantic_hash": "2c6add184c9646e78a35b84295a7d201"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/16x32 pieces/W_Rook.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "1ec0624ac93f06f5757bc7e00ad4a729",
+    "semantic_hash": "1ec0624ac93f06f5757bc7e00ad4a729"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/extras/board1.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "4112d3153ab0833622351ee127be5702",
+    "semantic_hash": "4112d3153ab0833622351ee127be5702"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/extras/board2.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "27d7ee6fd0bcc00ffd24f1af3064ae2f",
+    "semantic_hash": "27d7ee6fd0bcc00ffd24f1af3064ae2f"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/extras/board3.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "f66f85bb82d329a3961258fc20329941",
+    "semantic_hash": "f66f85bb82d329a3961258fc20329941"
+  },
+  "/home/cactus/dev/Regna/src/sprites/v1/extras/mouse.png": {
+    "mtime": 1780858454.080516,
+    "ast_hash": "7eb7d60e0b96bf468368117c2d099b79",
+    "semantic_hash": "7eb7d60e0b96bf468368117c2d099b79"
+  }
+}
