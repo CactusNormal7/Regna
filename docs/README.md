@@ -18,3 +18,6 @@
 ## `_archive/`
 
 Fichiers obsolètes ou doublons conservés pour référence historique. Ne pas référencer depuis le code ou la doc active.
+
+## Color 
+https://coolors.co/b0ada0-ea8400-f9f9f9-cac6bd
